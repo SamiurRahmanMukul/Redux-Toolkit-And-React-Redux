@@ -18,11 +18,12 @@
  *
  */
 
-// require redux and create store
+// ! require redux and create store
 // store --> holds the state and the reducer
-const { createStore, combineReducers } = require("redux");
+const { createStore, combineReducers, applyMiddleware } = require("redux");
+const { default: logger } = require("redux-logger");
 
-// defining constants
+// ! defining constants
 const INCREMENT = "INCREMENT";
 const INCREMENT_BY_VALUE = "INCREMENT_BY_VALUE";
 const DECREMENT = "DECREMENT";
@@ -32,7 +33,7 @@ const ADD_USER = "ADD_USER";
 const ADD_PRODUCT = "ADD_PRODUCT";
 const NUMBER_OF_PRODUCTS = "NUMBER_OF_PRODUCTS";
 
-// state
+// ! state
 const initialCountState = {
   user: [{ name: "John" }],
   count: 1,
@@ -43,7 +44,7 @@ const initialProductsState = {
   numberOfProducts: 1,
 };
 
-// action --> object with type and payload
+// ! action --> object with type and payload
 const incrementCounter = () => {
   return {
     type: INCREMENT,
@@ -84,7 +85,7 @@ const numberOfProductsAction = () => {
   };
 };
 
-// reducer --> takes in the state and action and returns the new state
+// ! reducer --> takes in the state and action and returns the new state
 // create reducer for counter
 const counterReducer = (state = initialCountState, action) => {
   switch (action.type) {
@@ -135,14 +136,14 @@ const productsReducer = (state = initialProductsState, action) => {
   }
 };
 
-// Multiple Reducers --> combineReducers
+// ! Multiple Reducers --> combineReducers
 const rootReducer = combineReducers({
   counter: counterReducer,
   products: productsReducer,
 });
 
-// create store
-const store = createStore(rootReducer);
+// ! create store
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 store.subscribe(() => {
   console.log(store.getState());
