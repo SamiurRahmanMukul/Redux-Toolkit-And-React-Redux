@@ -3,7 +3,7 @@ import { decrementCounter, incrementCounter, resetCounter } from "../redux/actio
 
 export const Counter = () => {
   const dispatch = useDispatch();
-  const reduxCount = useSelector((state) => state.count);
+  const reduxCount = useSelector((state) => state.counter.count);
 
   const handleIncrement = () => {
     dispatch(incrementCounter());
